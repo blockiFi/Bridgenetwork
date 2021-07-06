@@ -1,0 +1,1042 @@
+{
+    "contractName": "chainbridge",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "chainBridgeID",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "netWorkId",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "chainBridgeID",
+                    "type": "uint256"
+                }
+            ],
+            "name": "isActiveChain",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ],
+    "metadata": "{\"compiler\":{\"version\":\"0.8.6+commit.11564f7e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"chainBridgeID\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"netWorkId\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"chainBridgeID\",\"type\":\"uint256\"}],\"name\":\"isActiveChain\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"notice\":\"A multi chain , Multi Asset bridge samuel eke\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"c:/Users/samuel/Dropbox/My PC (LAPTOP-H7J194TT)/Documents/blockchain/chainBridge/contracts/main/chainBridge.sol\":\"chainbridge\"},\"evmVersion\":\"berlin\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"c:/Users/samuel/Dropbox/My PC (LAPTOP-H7J194TT)/Documents/blockchain/chainBridge/contracts/main/chainBridge.sol\":{\"keccak256\":\"0x05264fa20b9d4254f2b8aa8f208031c2a011bc98367404906d84dacbdd7a2aca\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://89ad4adc89da9b465a86bca7f0106a4d7fc62de2e2b1ae136c187fc714f21950\",\"dweb:/ipfs/QmSPQcPNPR5BMJvqYXqnYvbVoApvibgVN55ZDv82qMLm6c\"]}},\"version\":1}",
+    "bytecode": "608060405234801561001057600080fd5b5060405161013f38038061013f83398101604081905261002f9161005e565b60008281526020818152604080832094855560019485019390935583905220805460ff19169091179055610082565b6000806040838503121561007157600080fd5b505080516020909101519092909150565b60af806100906000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c8063ee3cd72114602d575b600080fd5b604d60383660046061565b60009081526001602052604090205460ff1690565b604051901515815260200160405180910390f35b600060208284031215607257600080fd5b503591905056fea2646970667358221220cff20b3d1b6ccc3841df8ff9847919bdae41027c5a8a68355225e570c6c8cc8064736f6c63430008060033",
+    "deployedBytecode": "6080604052348015600f57600080fd5b506004361060285760003560e01c8063ee3cd72114602d575b600080fd5b604d60383660046061565b60009081526001602052604090205460ff1690565b604051901515815260200160405180910390f35b600060208284031215607257600080fd5b503591905056fea2646970667358221220cff20b3d1b6ccc3841df8ff9847919bdae41027c5a8a68355225e570c6c8cc8064736f6c63430008060033",
+    "sourceMap": "118:872:1:-:0;;;592:266;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;654:29;686:27;;;;;;;;;;;722:39;;;770:19;;;;:31;;;;812:29;;;;:36;;-1:-1:-1;;812:36:1;;;;;;118:872;;14:245:92;93:6;101;154:2;142:9;133:7;129:23;125:32;122:2;;;170:1;167;160:12;122:2;-1:-1:-1;;193:16:92;;249:2;234:18;;;228:25;193:16;;228:25;;-1:-1:-1;112:147:92:o;:::-;118:872:1;;;;;;",
+    "deployedSourceMap": "118:872:1:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;863:122;;;;;;:::i;:::-;929:4;950:29;;;:14;:29;;;;;;;;;863:122;;;;364:14:92;;357:22;339:41;;327:2;312:18;863:122:1;;;;;;;14:180:92;73:6;126:2;114:9;105:7;101:23;97:32;94:2;;;142:1;139;132:12;94:2;-1:-1:-1;165:23:92;;84:110;-1:-1:-1;84:110:92:o",
+    "sourcePath": "c:/Users/samuel/Dropbox/My PC (LAPTOP-H7J194TT)/Documents/blockchain/chainBridge/contracts/main/chainBridge.sol",
+    "compiler": {
+        "name": "solc",
+        "version": "0.8.6+commit.11564f7e"
+    },
+    "ast": {
+        "absolutePath": "c:/Users/samuel/Dropbox/My PC (LAPTOP-H7J194TT)/Documents/blockchain/chainBridge/contracts/main/chainBridge.sol",
+        "exportedSymbols": {
+            "chainbridge": [
+                117
+            ]
+        },
+        "id": 118,
+        "license": "MIT",
+        "nodeType": "SourceUnit",
+        "nodes": [
+            {
+                "id": 34,
+                "literals": [
+                    "solidity",
+                    "^",
+                    "0.8",
+                    ".2"
+                ],
+                "nodeType": "PragmaDirective",
+                "src": "33:23:1"
+            },
+            {
+                "abstract": false,
+                "baseContracts": [],
+                "contractDependencies": [],
+                "contractKind": "contract",
+                "documentation": {
+                    "id": 35,
+                    "nodeType": "StructuredDocumentation",
+                    "src": "58:56:1",
+                    "text": "A multi chain , Multi Asset bridge\n samuel eke"
+                },
+                "fullyImplemented": true,
+                "id": 117,
+                "linearizedBaseContracts": [
+                    117
+                ],
+                "name": "chainbridge",
+                "nameLocation": "127:11:1",
+                "nodeType": "ContractDefinition",
+                "nodes": [
+                    {
+                        "canonicalName": "chainbridge.nativeAsset",
+                        "id": 48,
+                        "members": [
+                            {
+                                "constant": false,
+                                "id": 37,
+                                "mutability": "mutable",
+                                "name": "assetAddress",
+                                "nameLocation": "176:12:1",
+                                "nodeType": "VariableDeclaration",
+                                "scope": 48,
+                                "src": "168:20:1",
+                                "stateVariable": false,
+                                "storageLocation": "default",
+                                "typeDescriptions": {
+                                    "typeIdentifier": "t_address",
+                                    "typeString": "address"
+                                },
+                                "typeName": {
+                                    "id": 36,
+                                    "name": "address",
+                                    "nodeType": "ElementaryTypeName",
+                                    "src": "168:7:1",
+                                    "stateMutability": "nonpayable",
+                                    "typeDescriptions": {
+                                        "typeIdentifier": "t_address",
+                                        "typeString": "address"
+                                    }
+                                },
+                                "visibility": "internal"
+                            },
+                            {
+                                "constant": false,
+                                "id": 39,
+                                "mutability": "mutable",
+                                "name": "minTransfer",
+                                "nameLocation": "203:11:1",
+                                "nodeType": "VariableDeclaration",
+                                "scope": 48,
+                                "src": "195:19:1",
+                                "stateVariable": false,
+                                "storageLocation": "default",
+                                "typeDescriptions": {
+                                    "typeIdentifier": "t_uint256",
+                                    "typeString": "uint256"
+                                },
+                                "typeName": {
+                                    "id": 38,
+                                    "name": "uint256",
+                                    "nodeType": "ElementaryTypeName",
+                                    "src": "195:7:1",
+                                    "typeDescriptions": {
+                                        "typeIdentifier": "t_uint256",
+                                        "typeString": "uint256"
+                                    }
+                                },
+                                "visibility": "internal"
+                            },
+                            {
+                                "constant": false,
+                                "id": 41,
+                                "mutability": "mutable",
+                                "name": "maxTransfer",
+                                "nameLocation": "229:11:1",
+                                "nodeType": "VariableDeclaration",
+                                "scope": 48,
+                                "src": "221:19:1",
+                                "stateVariable": false,
+                                "storageLocation": "default",
+                                "typeDescriptions": {
+                                    "typeIdentifier": "t_uint256",
+                                    "typeString": "uint256"
+                                },
+                                "typeName": {
+                                    "id": 40,
+                                    "name": "uint256",
+                                    "nodeType": "ElementaryTypeName",
+                                    "src": "221:7:1",
+                                    "typeDescriptions": {
+                                        "typeIdentifier": "t_uint256",
+                                        "typeString": "uint256"
+                                    }
+                                },
+                                "visibility": "internal"
+                            },
+                            {
+                                "constant": false,
+                                "id": 43,
+                                "mutability": "mutable",
+                                "name": "balance",
+                                "nameLocation": "255:7:1",
+                                "nodeType": "VariableDeclaration",
+                                "scope": 48,
+                                "src": "247:15:1",
+                                "stateVariable": false,
+                                "storageLocation": "default",
+                                "typeDescriptions": {
+                                    "typeIdentifier": "t_uint256",
+                                    "typeString": "uint256"
+                                },
+                                "typeName": {
+                                    "id": 42,
+                                    "name": "uint256",
+                                    "nodeType": "ElementaryTypeName",
+                                    "src": "247:7:1",
+                                    "typeDescriptions": {
+                                        "typeIdentifier": "t_uint256",
+                                        "typeString": "uint256"
+                                    }
+                                },
+                                "visibility": "internal"
+                            },
+                            {
+                                "constant": false,
+                                "id": 45,
+                                "mutability": "mutable",
+                                "name": "transferFee",
+                                "nameLocation": "277:11:1",
+                                "nodeType": "VariableDeclaration",
+                                "scope": 48,
+                                "src": "269:19:1",
+                                "stateVariable": false,
+                                "storageLocation": "default",
+                                "typeDescriptions": {
+                                    "typeIdentifier": "t_uint256",
+                                    "typeString": "uint256"
+                                },
+                                "typeName": {
+                                    "id": 44,
+                                    "name": "uint256",
+                                    "nodeType": "ElementaryTypeName",
+                                    "src": "269:7:1",
+                                    "typeDescriptions": {
+                                        "typeIdentifier": "t_uint256",
+                                        "typeString": "uint256"
+                                    }
+                                },
+                                "visibility": "internal"
+                            },
+                            {
+                                "constant": false,
+                                "id": 47,
+                                "mutability": "mutable",
+                                "name": "active",
+                                "nameLocation": "300:6:1",
+                                "nodeType": "VariableDeclaration",
+                                "scope": 48,
+                                "src": "295:11:1",
+                                "stateVariable": false,
+                                "storageLocation": "default",
+                                "typeDescriptions": {
+                                    "typeIdentifier": "t_bool",
+                                    "typeString": "bool"
+                                },
+                                "typeName": {
+                                    "id": 46,
+                                    "name": "bool",
+                                    "nodeType": "ElementaryTypeName",
+                                    "src": "295:4:1",
+                                    "typeDescriptions": {
+                                        "typeIdentifier": "t_bool",
+                                        "typeString": "bool"
+                                    }
+                                },
+                                "visibility": "internal"
+                            }
+                        ],
+                        "name": "nativeAsset",
+                        "nameLocation": "149:11:1",
+                        "nodeType": "StructDefinition",
+                        "scope": 117,
+                        "src": "142:170:1",
+                        "visibility": "public"
+                    },
+                    {
+                        "canonicalName": "chainbridge.chainBridge",
+                        "id": 62,
+                        "members": [
+                            {
+                                "constant": false,
+                                "id": 50,
+                                "mutability": "mutable",
+                                "name": "chainBridgeID",
+                                "nameLocation": "348:13:1",
+                                "nodeType": "VariableDeclaration",
+                                "scope": 62,
+                                "src": "340:21:1",
+                                "stateVariable": false,
+                                "storageLocation": "default",
+                                "typeDescriptions": {
+                                    "typeIdentifier": "t_uint256",
+                                    "typeString": "uint256"
+                                },
+                                "typeName": {
+                                    "id": 49,
+                                    "name": "uint256",
+                                    "nodeType": "ElementaryTypeName",
+                                    "src": "340:7:1",
+                                    "typeDescriptions": {
+                                        "typeIdentifier": "t_uint256",
+                                        "typeString": "uint256"
+                                    }
+                                },
+                                "visibility": "internal"
+                            },
+                            {
+                                "constant": false,
+                                "id": 52,
+                                "mutability": "mutable",
+                                "name": "netWorkId",
+                                "nameLocation": "376:9:1",
+                                "nodeType": "VariableDeclaration",
+                                "scope": 62,
+                                "src": "368:17:1",
+                                "stateVariable": false,
+                                "storageLocation": "default",
+                                "typeDescriptions": {
+                                    "typeIdentifier": "t_uint256",
+                                    "typeString": "uint256"
+                                },
+                                "typeName": {
+                                    "id": 51,
+                                    "name": "uint256",
+                                    "nodeType": "ElementaryTypeName",
+                                    "src": "368:7:1",
+                                    "typeDescriptions": {
+                                        "typeIdentifier": "t_uint256",
+                                        "typeString": "uint256"
+                                    }
+                                },
+                                "visibility": "internal"
+                            },
+                            {
+                                "constant": false,
+                                "id": 57,
+                                "mutability": "mutable",
+                                "name": "nativeAssets",
+                                "nameLocation": "425:12:1",
+                                "nodeType": "VariableDeclaration",
+                                "scope": 62,
+                                "src": "392:45:1",
+                                "stateVariable": false,
+                                "storageLocation": "default",
+                                "typeDescriptions": {
+                                    "typeIdentifier": "t_mapping$_t_address_$_t_struct$_nativeAsset_$48_storage_$",
+                                    "typeString": "mapping(address => struct chainbridge.nativeAsset)"
+                                },
+                                "typeName": {
+                                    "id": 56,
+                                    "keyType": {
+                                        "id": 53,
+                                        "name": "address",
+                                        "nodeType": "ElementaryTypeName",
+                                        "src": "401:7:1",
+                                        "typeDescriptions": {
+                                            "typeIdentifier": "t_address",
+                                            "typeString": "address"
+                                        }
+                                    },
+                                    "nodeType": "Mapping",
+                                    "src": "392:32:1",
+                                    "typeDescriptions": {
+                                        "typeIdentifier": "t_mapping$_t_address_$_t_struct$_nativeAsset_$48_storage_$",
+                                        "typeString": "mapping(address => struct chainbridge.nativeAsset)"
+                                    },
+                                    "valueType": {
+                                        "id": 55,
+                                        "nodeType": "UserDefinedTypeName",
+                                        "pathNode": {
+                                            "id": 54,
+                                            "name": "nativeAsset",
+                                            "nodeType": "IdentifierPath",
+                                            "referencedDeclaration": 48,
+                                            "src": "412:11:1"
+                                        },
+                                        "referencedDeclaration": 48,
+                                        "src": "412:11:1",
+                                        "typeDescriptions": {
+                                            "typeIdentifier": "t_struct$_nativeAsset_$48_storage_ptr",
+                                            "typeString": "struct chainbridge.nativeAsset"
+                                        }
+                                    }
+                                },
+                                "visibility": "internal"
+                            },
+                            {
+                                "constant": false,
+                                "id": 61,
+                                "mutability": "mutable",
+                                "name": "activeNativeAssets",
+                                "nameLocation": "471:18:1",
+                                "nodeType": "VariableDeclaration",
+                                "scope": 62,
+                                "src": "444:45:1",
+                                "stateVariable": false,
+                                "storageLocation": "default",
+                                "typeDescriptions": {
+                                    "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
+                                    "typeString": "mapping(address => bool)"
+                                },
+                                "typeName": {
+                                    "id": 60,
+                                    "keyType": {
+                                        "id": 58,
+                                        "name": "address",
+                                        "nodeType": "ElementaryTypeName",
+                                        "src": "453:7:1",
+                                        "typeDescriptions": {
+                                            "typeIdentifier": "t_address",
+                                            "typeString": "address"
+                                        }
+                                    },
+                                    "nodeType": "Mapping",
+                                    "src": "444:26:1",
+                                    "typeDescriptions": {
+                                        "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
+                                        "typeString": "mapping(address => bool)"
+                                    },
+                                    "valueType": {
+                                        "id": 59,
+                                        "name": "bool",
+                                        "nodeType": "ElementaryTypeName",
+                                        "src": "464:4:1",
+                                        "typeDescriptions": {
+                                            "typeIdentifier": "t_bool",
+                                            "typeString": "bool"
+                                        }
+                                    }
+                                },
+                                "visibility": "internal"
+                            }
+                        ],
+                        "name": "chainBridge",
+                        "nameLocation": "321:11:1",
+                        "nodeType": "StructDefinition",
+                        "scope": 117,
+                        "src": "314:181:1",
+                        "visibility": "public"
+                    },
+                    {
+                        "constant": false,
+                        "id": 67,
+                        "mutability": "mutable",
+                        "name": "chainBridges",
+                        "nameLocation": "530:12:1",
+                        "nodeType": "VariableDeclaration",
+                        "scope": 117,
+                        "src": "497:45:1",
+                        "stateVariable": true,
+                        "storageLocation": "default",
+                        "typeDescriptions": {
+                            "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_chainBridge_$62_storage_$",
+                            "typeString": "mapping(uint256 => struct chainbridge.chainBridge)"
+                        },
+                        "typeName": {
+                            "id": 66,
+                            "keyType": {
+                                "id": 63,
+                                "name": "uint256",
+                                "nodeType": "ElementaryTypeName",
+                                "src": "505:7:1",
+                                "typeDescriptions": {
+                                    "typeIdentifier": "t_uint256",
+                                    "typeString": "uint256"
+                                }
+                            },
+                            "nodeType": "Mapping",
+                            "src": "497:32:1",
+                            "typeDescriptions": {
+                                "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_chainBridge_$62_storage_$",
+                                "typeString": "mapping(uint256 => struct chainbridge.chainBridge)"
+                            },
+                            "valueType": {
+                                "id": 65,
+                                "nodeType": "UserDefinedTypeName",
+                                "pathNode": {
+                                    "id": 64,
+                                    "name": "chainBridge",
+                                    "nodeType": "IdentifierPath",
+                                    "referencedDeclaration": 62,
+                                    "src": "516:11:1"
+                                },
+                                "referencedDeclaration": 62,
+                                "src": "516:11:1",
+                                "typeDescriptions": {
+                                    "typeIdentifier": "t_struct$_chainBridge_$62_storage_ptr",
+                                    "typeString": "struct chainbridge.chainBridge"
+                                }
+                            }
+                        },
+                        "visibility": "internal"
+                    },
+                    {
+                        "constant": false,
+                        "id": 71,
+                        "mutability": "mutable",
+                        "name": "isBridgeActive",
+                        "nameLocation": "571:14:1",
+                        "nodeType": "VariableDeclaration",
+                        "scope": 117,
+                        "src": "545:40:1",
+                        "stateVariable": true,
+                        "storageLocation": "default",
+                        "typeDescriptions": {
+                            "typeIdentifier": "t_mapping$_t_uint256_$_t_bool_$",
+                            "typeString": "mapping(uint256 => bool)"
+                        },
+                        "typeName": {
+                            "id": 70,
+                            "keyType": {
+                                "id": 68,
+                                "name": "uint256",
+                                "nodeType": "ElementaryTypeName",
+                                "src": "553:7:1",
+                                "typeDescriptions": {
+                                    "typeIdentifier": "t_uint256",
+                                    "typeString": "uint256"
+                                }
+                            },
+                            "nodeType": "Mapping",
+                            "src": "545:25:1",
+                            "typeDescriptions": {
+                                "typeIdentifier": "t_mapping$_t_uint256_$_t_bool_$",
+                                "typeString": "mapping(uint256 => bool)"
+                            },
+                            "valueType": {
+                                "id": 69,
+                                "name": "bool",
+                                "nodeType": "ElementaryTypeName",
+                                "src": "564:4:1",
+                                "typeDescriptions": {
+                                    "typeIdentifier": "t_bool",
+                                    "typeString": "bool"
+                                }
+                            }
+                        },
+                        "visibility": "internal"
+                    },
+                    {
+                        "body": {
+                            "id": 103,
+                            "nodeType": "Block",
+                            "src": "645:213:1",
+                            "statements": [
+                                {
+                                    "assignments": [
+                                        80
+                                    ],
+                                    "declarations": [
+                                        {
+                                            "constant": false,
+                                            "id": 80,
+                                            "mutability": "mutable",
+                                            "name": "newbridge",
+                                            "nameLocation": "674:9:1",
+                                            "nodeType": "VariableDeclaration",
+                                            "scope": 103,
+                                            "src": "654:29:1",
+                                            "stateVariable": false,
+                                            "storageLocation": "storage",
+                                            "typeDescriptions": {
+                                                "typeIdentifier": "t_struct$_chainBridge_$62_storage_ptr",
+                                                "typeString": "struct chainbridge.chainBridge"
+                                            },
+                                            "typeName": {
+                                                "id": 79,
+                                                "nodeType": "UserDefinedTypeName",
+                                                "pathNode": {
+                                                    "id": 78,
+                                                    "name": "chainBridge",
+                                                    "nodeType": "IdentifierPath",
+                                                    "referencedDeclaration": 62,
+                                                    "src": "654:11:1"
+                                                },
+                                                "referencedDeclaration": 62,
+                                                "src": "654:11:1",
+                                                "typeDescriptions": {
+                                                    "typeIdentifier": "t_struct$_chainBridge_$62_storage_ptr",
+                                                    "typeString": "struct chainbridge.chainBridge"
+                                                }
+                                            },
+                                            "visibility": "internal"
+                                        }
+                                    ],
+                                    "id": 84,
+                                    "initialValue": {
+                                        "baseExpression": {
+                                            "id": 81,
+                                            "name": "chainBridges",
+                                            "nodeType": "Identifier",
+                                            "overloadedDeclarations": [],
+                                            "referencedDeclaration": 67,
+                                            "src": "686:12:1",
+                                            "typeDescriptions": {
+                                                "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_chainBridge_$62_storage_$",
+                                                "typeString": "mapping(uint256 => struct chainbridge.chainBridge storage ref)"
+                                            }
+                                        },
+                                        "id": 83,
+                                        "indexExpression": {
+                                            "id": 82,
+                                            "name": "chainBridgeID",
+                                            "nodeType": "Identifier",
+                                            "overloadedDeclarations": [],
+                                            "referencedDeclaration": 73,
+                                            "src": "699:13:1",
+                                            "typeDescriptions": {
+                                                "typeIdentifier": "t_uint256",
+                                                "typeString": "uint256"
+                                            }
+                                        },
+                                        "isConstant": false,
+                                        "isLValue": true,
+                                        "isPure": false,
+                                        "lValueRequested": false,
+                                        "nodeType": "IndexAccess",
+                                        "src": "686:27:1",
+                                        "typeDescriptions": {
+                                            "typeIdentifier": "t_struct$_chainBridge_$62_storage",
+                                            "typeString": "struct chainbridge.chainBridge storage ref"
+                                        }
+                                    },
+                                    "nodeType": "VariableDeclarationStatement",
+                                    "src": "654:59:1"
+                                },
+                                {
+                                    "expression": {
+                                        "id": 89,
+                                        "isConstant": false,
+                                        "isLValue": false,
+                                        "isPure": false,
+                                        "lValueRequested": false,
+                                        "leftHandSide": {
+                                            "expression": {
+                                                "id": 85,
+                                                "name": "newbridge",
+                                                "nodeType": "Identifier",
+                                                "overloadedDeclarations": [],
+                                                "referencedDeclaration": 80,
+                                                "src": "722:9:1",
+                                                "typeDescriptions": {
+                                                    "typeIdentifier": "t_struct$_chainBridge_$62_storage_ptr",
+                                                    "typeString": "struct chainbridge.chainBridge storage pointer"
+                                                }
+                                            },
+                                            "id": 87,
+                                            "isConstant": false,
+                                            "isLValue": true,
+                                            "isPure": false,
+                                            "lValueRequested": true,
+                                            "memberName": "chainBridgeID",
+                                            "nodeType": "MemberAccess",
+                                            "referencedDeclaration": 50,
+                                            "src": "722:23:1",
+                                            "typeDescriptions": {
+                                                "typeIdentifier": "t_uint256",
+                                                "typeString": "uint256"
+                                            }
+                                        },
+                                        "nodeType": "Assignment",
+                                        "operator": "=",
+                                        "rightHandSide": {
+                                            "id": 88,
+                                            "name": "chainBridgeID",
+                                            "nodeType": "Identifier",
+                                            "overloadedDeclarations": [],
+                                            "referencedDeclaration": 73,
+                                            "src": "748:13:1",
+                                            "typeDescriptions": {
+                                                "typeIdentifier": "t_uint256",
+                                                "typeString": "uint256"
+                                            }
+                                        },
+                                        "src": "722:39:1",
+                                        "typeDescriptions": {
+                                            "typeIdentifier": "t_uint256",
+                                            "typeString": "uint256"
+                                        }
+                                    },
+                                    "id": 90,
+                                    "nodeType": "ExpressionStatement",
+                                    "src": "722:39:1"
+                                },
+                                {
+                                    "expression": {
+                                        "id": 95,
+                                        "isConstant": false,
+                                        "isLValue": false,
+                                        "isPure": false,
+                                        "lValueRequested": false,
+                                        "leftHandSide": {
+                                            "expression": {
+                                                "id": 91,
+                                                "name": "newbridge",
+                                                "nodeType": "Identifier",
+                                                "overloadedDeclarations": [],
+                                                "referencedDeclaration": 80,
+                                                "src": "770:9:1",
+                                                "typeDescriptions": {
+                                                    "typeIdentifier": "t_struct$_chainBridge_$62_storage_ptr",
+                                                    "typeString": "struct chainbridge.chainBridge storage pointer"
+                                                }
+                                            },
+                                            "id": 93,
+                                            "isConstant": false,
+                                            "isLValue": true,
+                                            "isPure": false,
+                                            "lValueRequested": true,
+                                            "memberName": "netWorkId",
+                                            "nodeType": "MemberAccess",
+                                            "referencedDeclaration": 52,
+                                            "src": "770:19:1",
+                                            "typeDescriptions": {
+                                                "typeIdentifier": "t_uint256",
+                                                "typeString": "uint256"
+                                            }
+                                        },
+                                        "nodeType": "Assignment",
+                                        "operator": "=",
+                                        "rightHandSide": {
+                                            "id": 94,
+                                            "name": "netWorkId",
+                                            "nodeType": "Identifier",
+                                            "overloadedDeclarations": [],
+                                            "referencedDeclaration": 75,
+                                            "src": "792:9:1",
+                                            "typeDescriptions": {
+                                                "typeIdentifier": "t_uint256",
+                                                "typeString": "uint256"
+                                            }
+                                        },
+                                        "src": "770:31:1",
+                                        "typeDescriptions": {
+                                            "typeIdentifier": "t_uint256",
+                                            "typeString": "uint256"
+                                        }
+                                    },
+                                    "id": 96,
+                                    "nodeType": "ExpressionStatement",
+                                    "src": "770:31:1"
+                                },
+                                {
+                                    "expression": {
+                                        "id": 101,
+                                        "isConstant": false,
+                                        "isLValue": false,
+                                        "isPure": false,
+                                        "lValueRequested": false,
+                                        "leftHandSide": {
+                                            "baseExpression": {
+                                                "id": 97,
+                                                "name": "isBridgeActive",
+                                                "nodeType": "Identifier",
+                                                "overloadedDeclarations": [],
+                                                "referencedDeclaration": 71,
+                                                "src": "812:14:1",
+                                                "typeDescriptions": {
+                                                    "typeIdentifier": "t_mapping$_t_uint256_$_t_bool_$",
+                                                    "typeString": "mapping(uint256 => bool)"
+                                                }
+                                            },
+                                            "id": 99,
+                                            "indexExpression": {
+                                                "id": 98,
+                                                "name": "chainBridgeID",
+                                                "nodeType": "Identifier",
+                                                "overloadedDeclarations": [],
+                                                "referencedDeclaration": 73,
+                                                "src": "827:13:1",
+                                                "typeDescriptions": {
+                                                    "typeIdentifier": "t_uint256",
+                                                    "typeString": "uint256"
+                                                }
+                                            },
+                                            "isConstant": false,
+                                            "isLValue": true,
+                                            "isPure": false,
+                                            "lValueRequested": true,
+                                            "nodeType": "IndexAccess",
+                                            "src": "812:29:1",
+                                            "typeDescriptions": {
+                                                "typeIdentifier": "t_bool",
+                                                "typeString": "bool"
+                                            }
+                                        },
+                                        "nodeType": "Assignment",
+                                        "operator": "=",
+                                        "rightHandSide": {
+                                            "hexValue": "74727565",
+                                            "id": 100,
+                                            "isConstant": false,
+                                            "isLValue": false,
+                                            "isPure": true,
+                                            "kind": "bool",
+                                            "lValueRequested": false,
+                                            "nodeType": "Literal",
+                                            "src": "844:4:1",
+                                            "typeDescriptions": {
+                                                "typeIdentifier": "t_bool",
+                                                "typeString": "bool"
+                                            },
+                                            "value": "true"
+                                        },
+                                        "src": "812:36:1",
+                                        "typeDescriptions": {
+                                            "typeIdentifier": "t_bool",
+                                            "typeString": "bool"
+                                        }
+                                    },
+                                    "id": 102,
+                                    "nodeType": "ExpressionStatement",
+                                    "src": "812:36:1"
+                                }
+                            ]
+                        },
+                        "id": 104,
+                        "implemented": true,
+                        "kind": "constructor",
+                        "modifiers": [],
+                        "name": "",
+                        "nameLocation": "-1:-1:-1",
+                        "nodeType": "FunctionDefinition",
+                        "parameters": {
+                            "id": 76,
+                            "nodeType": "ParameterList",
+                            "parameters": [
+                                {
+                                    "constant": false,
+                                    "id": 73,
+                                    "mutability": "mutable",
+                                    "name": "chainBridgeID",
+                                    "nameLocation": "610:13:1",
+                                    "nodeType": "VariableDeclaration",
+                                    "scope": 104,
+                                    "src": "605:18:1",
+                                    "stateVariable": false,
+                                    "storageLocation": "default",
+                                    "typeDescriptions": {
+                                        "typeIdentifier": "t_uint256",
+                                        "typeString": "uint256"
+                                    },
+                                    "typeName": {
+                                        "id": 72,
+                                        "name": "uint",
+                                        "nodeType": "ElementaryTypeName",
+                                        "src": "605:4:1",
+                                        "typeDescriptions": {
+                                            "typeIdentifier": "t_uint256",
+                                            "typeString": "uint256"
+                                        }
+                                    },
+                                    "visibility": "internal"
+                                },
+                                {
+                                    "constant": false,
+                                    "id": 75,
+                                    "mutability": "mutable",
+                                    "name": "netWorkId",
+                                    "nameLocation": "634:9:1",
+                                    "nodeType": "VariableDeclaration",
+                                    "scope": 104,
+                                    "src": "626:17:1",
+                                    "stateVariable": false,
+                                    "storageLocation": "default",
+                                    "typeDescriptions": {
+                                        "typeIdentifier": "t_uint256",
+                                        "typeString": "uint256"
+                                    },
+                                    "typeName": {
+                                        "id": 74,
+                                        "name": "uint256",
+                                        "nodeType": "ElementaryTypeName",
+                                        "src": "626:7:1",
+                                        "typeDescriptions": {
+                                            "typeIdentifier": "t_uint256",
+                                            "typeString": "uint256"
+                                        }
+                                    },
+                                    "visibility": "internal"
+                                }
+                            ],
+                            "src": "604:40:1"
+                        },
+                        "returnParameters": {
+                            "id": 77,
+                            "nodeType": "ParameterList",
+                            "parameters": [],
+                            "src": "645:0:1"
+                        },
+                        "scope": 117,
+                        "src": "592:266:1",
+                        "stateMutability": "nonpayable",
+                        "virtual": false,
+                        "visibility": "public"
+                    },
+                    {
+                        "body": {
+                            "id": 115,
+                            "nodeType": "Block",
+                            "src": "934:51:1",
+                            "statements": [
+                                {
+                                    "expression": {
+                                        "baseExpression": {
+                                            "id": 111,
+                                            "name": "isBridgeActive",
+                                            "nodeType": "Identifier",
+                                            "overloadedDeclarations": [],
+                                            "referencedDeclaration": 71,
+                                            "src": "950:14:1",
+                                            "typeDescriptions": {
+                                                "typeIdentifier": "t_mapping$_t_uint256_$_t_bool_$",
+                                                "typeString": "mapping(uint256 => bool)"
+                                            }
+                                        },
+                                        "id": 113,
+                                        "indexExpression": {
+                                            "id": 112,
+                                            "name": "chainBridgeID",
+                                            "nodeType": "Identifier",
+                                            "overloadedDeclarations": [],
+                                            "referencedDeclaration": 106,
+                                            "src": "965:13:1",
+                                            "typeDescriptions": {
+                                                "typeIdentifier": "t_uint256",
+                                                "typeString": "uint256"
+                                            }
+                                        },
+                                        "isConstant": false,
+                                        "isLValue": true,
+                                        "isPure": false,
+                                        "lValueRequested": false,
+                                        "nodeType": "IndexAccess",
+                                        "src": "950:29:1",
+                                        "typeDescriptions": {
+                                            "typeIdentifier": "t_bool",
+                                            "typeString": "bool"
+                                        }
+                                    },
+                                    "functionReturnParameters": 110,
+                                    "id": 114,
+                                    "nodeType": "Return",
+                                    "src": "943:36:1"
+                                }
+                            ]
+                        },
+                        "functionSelector": "ee3cd721",
+                        "id": 116,
+                        "implemented": true,
+                        "kind": "function",
+                        "modifiers": [],
+                        "name": "isActiveChain",
+                        "nameLocation": "872:13:1",
+                        "nodeType": "FunctionDefinition",
+                        "parameters": {
+                            "id": 107,
+                            "nodeType": "ParameterList",
+                            "parameters": [
+                                {
+                                    "constant": false,
+                                    "id": 106,
+                                    "mutability": "mutable",
+                                    "name": "chainBridgeID",
+                                    "nameLocation": "894:13:1",
+                                    "nodeType": "VariableDeclaration",
+                                    "scope": 116,
+                                    "src": "886:21:1",
+                                    "stateVariable": false,
+                                    "storageLocation": "default",
+                                    "typeDescriptions": {
+                                        "typeIdentifier": "t_uint256",
+                                        "typeString": "uint256"
+                                    },
+                                    "typeName": {
+                                        "id": 105,
+                                        "name": "uint256",
+                                        "nodeType": "ElementaryTypeName",
+                                        "src": "886:7:1",
+                                        "typeDescriptions": {
+                                            "typeIdentifier": "t_uint256",
+                                            "typeString": "uint256"
+                                        }
+                                    },
+                                    "visibility": "internal"
+                                }
+                            ],
+                            "src": "885:23:1"
+                        },
+                        "returnParameters": {
+                            "id": 110,
+                            "nodeType": "ParameterList",
+                            "parameters": [
+                                {
+                                    "constant": false,
+                                    "id": 109,
+                                    "mutability": "mutable",
+                                    "name": "",
+                                    "nameLocation": "-1:-1:-1",
+                                    "nodeType": "VariableDeclaration",
+                                    "scope": 116,
+                                    "src": "929:4:1",
+                                    "stateVariable": false,
+                                    "storageLocation": "default",
+                                    "typeDescriptions": {
+                                        "typeIdentifier": "t_bool",
+                                        "typeString": "bool"
+                                    },
+                                    "typeName": {
+                                        "id": 108,
+                                        "name": "bool",
+                                        "nodeType": "ElementaryTypeName",
+                                        "src": "929:4:1",
+                                        "typeDescriptions": {
+                                            "typeIdentifier": "t_bool",
+                                            "typeString": "bool"
+                                        }
+                                    },
+                                    "visibility": "internal"
+                                }
+                            ],
+                            "src": "928:6:1"
+                        },
+                        "scope": 117,
+                        "src": "863:122:1",
+                        "stateMutability": "view",
+                        "virtual": false,
+                        "visibility": "public"
+                    }
+                ],
+                "scope": 118,
+                "src": "118:872:1",
+                "usedErrors": []
+            }
+        ],
+        "src": "33:961:1"
+    },
+    "functionHashes": {
+        "isActiveChain(uint256)": "ee3cd721"
+    },
+    "gasEstimates": {
+        "creation": {
+            "codeDepositCost": "35000",
+            "executionCost": "infinite",
+            "totalCost": "infinite"
+        },
+        "external": {
+            "isActiveChain(uint256)": "2416"
+        }
+    }
+}
