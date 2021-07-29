@@ -1,0 +1,99 @@
+body {
+    padding: 0;
+    margin: 0;
+    background: rgb(18, 17, 16);
+    background-size: cover;
+}
+.trade-container {
+    position: absolute;
+    top: 10vh;
+    left: 30%;
+    width: 40%;
+    border-radius: 20px;
+    background-color: #000000;
+    height: 80vh;
+    color: white;
+}
+.trade-content {
+    position: relative;
+    margin: 30px;
+}
+.grayed {
+    color: gray;
+}
+.network-selection{
+    position: relative;
+}
+.network-from {
+    width:  45%;
+    display: inline-flex; 
+}
+.network-to {
+   display: inline-flex;
+   width:  45%;
+ }
+ select {
+     background-color:rgb(18, 17, 16) ;
+     color: white;
+     padding: 15px;
+     border:none;
+     width: 80% !important;
+     border-radius: 20px;
+ }
+ select:active {
+    border:none;  
+ }
+ .trade-asset{
+     position: relative;
+ }
+ .asset-selection {
+     width: 80%;
+ }
+ .trade-amount-input {
+     margin-right: 20px;
+     width: 90%;
+     background-color:rgb(18, 17, 16) ;
+     color: white;
+     padding: 15px;
+     border:none;
+     border-radius: 20px;
+     
+ }
+ .transfer-button{
+     padding: 30px;
+     margin-top: 30px;
+     width: 100%;
+     background-color: blue;
+ }
+ .approve-button{
+    padding: 30px;
+    margin-top: 30px;
+    width: 100%;
+    background-color: orangered;
+ }
+ .connect-button {
+    background-color: blue;
+     position: absolute;
+     right: 0;
+    
+ 
+     padding: 13px;
+     margin: 10px;
+ }
+ .connect-address{
+    position: absolute;
+    right: 0;
+    background-color: gray !important;
+    padding: 13px;
+    margin: 10px;   
+ }
+ .btn { 
+    
+    border : none;
+    color: white;
+    transition: all 0.2s;
+    border-radius: 500px;
+ }
+.btn:active {
+    transform: translateY(10px);
+}
