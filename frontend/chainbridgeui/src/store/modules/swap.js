@@ -11,13 +11,13 @@ const state = {
             id : "97",
             name : "Bsc TestNet",
             network: "BSC",
-            bridgeAddress : "0x7Ee9BD6566b9A5C068a7bfE4D1568411C80B36d4",
+            bridgeAddress : "0xF8FE9aA0A440e14691ea1F1e7EA376540ab7a898",
             active : false    
            },
-            {   id : "42",
-            name : "Kovan",
+            {   id : "4",
+            name : "Rinkby",
             network: "ETH",
-            bridgeAddress : "0x5e0139A1bdE4C3eD4Bcb53D04ab4CCe7bDBD1BA5",
+            bridgeAddress : "0xF8E17D2FD227569d691EdbE3d428E1da674a31DD",
             active : false    
            },
         //     {   id : "787",

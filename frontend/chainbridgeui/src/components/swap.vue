@@ -143,11 +143,11 @@ export default {
                     console.log(send); 
                 }
                  
-                 this.$toast.success("Transfer successfull");
-                  this.transferbutton = false;
-                   this.approve = true;
-                   this.activetransfer = false;
-                     this.$store.dispatch("swap/loadAssets" );
+                this.$toast.success("Transfer successfull");
+                this.transferbutton = false;
+                this.approve = true;
+                this.activetransfer = false;
+                this.$store.dispatch("swap/loadAssets" ); 
             }
             catch(error){
                   this.activetransfer = false;

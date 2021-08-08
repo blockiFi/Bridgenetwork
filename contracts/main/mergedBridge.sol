@@ -562,11 +562,54 @@ contract WRAPPEDTOKEN is ERC20 ,Ownable {
     
     
 }
+contract administration is Ownable {
+    mapping(address =>bool) public isAdmin;
+    modifier onlyAdmin() {
+        require(isAdmin[_msgSender()] || _msgSender() == owner() , "unathourized access");
+        _;
+    }
+    constructor() {
+        
+        
+    }
+    
+    function addAdmin(address admin , bool add) public onlyOwner {
+        isAdmin[admin] = add;
+    }
+}
+contract validationable is administration{
+  mapping(address =>bool) public isValidator;
+    modifier onlyValidator() {
+        require(isValidator[_msgSender()] , "unathourized access");
+        _;
+    }
+    constructor() {
+        
+    }
+    
+    function addValidator(address validator , bool add) public onlyAdmin {
+        isValidator[validator] = add;
+    }  
+}
+contract oracle is administration{
+  mapping(address =>bool) public isOracle;
+    modifier onlyOracle() {
+        require(isOracle[_msgSender()] , "unathourized access");
+        _;
+    }
+    constructor() {
+        
+    }
+    
+    function addOracle(address _oracle , bool add) public onlyAdmin {
+        isOracle[_oracle] = add;
+    }  
+}
 // SPDX-License-Identifier: GPL-3.0
 
 pragma solidity ^0.8.2;
 
-contract chainBridge is Context{
+contract chainBridge is Context , validationable , oracle {
    
      struct nativeAsset {
         address tokenAddress; 
@@ -576,18 +619,32 @@ contract chainBridge is Context{
         uint256 balance; 
         uint256[] SupportedchainIds;
         mapping(uint256 => bool) isSupportedChain;
+        bool isSet;
      }
     
-
+    address[] public nativeAssetsList;
     mapping(address => nativeAsset) public nativeAssets;
     mapping(address => bool) public isActiveNativeAsset;
-    uint256 public chainId; // current chain id
+    uint256 public chainId = 42; // current chain id
     struct foriegnAsset {
        address nativeAddress; 
        address foriegnAddress;
         uint256 minAmount; 
         uint256 chainID;
         bool isSet ;
+   }
+   function getSupportedchainIds(address assetAddress ) public view returns(uint256[] memory){
+       return nativeAssets[assetAddress].SupportedchainIds;
+   }
+   function foriegnAssetChain(address assetAddress) public  view returns(uint256){
+      return foriegnAssets[assetAddress].chainID;
+   }
+   address[] public foriegnAssetsList;
+   function getforiegnAssetsList() public view returns(address[] memory){
+       return  foriegnAssetsList;
+   }
+    function getnativeAssetsList() public view returns(address[] memory){
+       return  nativeAssetsList;
    }
    mapping(address => foriegnAsset) public foriegnAssets;
    mapping(address => address) public wrappedForiegnPair;
@@ -625,21 +682,45 @@ contract chainBridge is Context{
    mapping(bytes32 => bool) public isburnTransactions;
    mapping(bytes32 => validation ) public transactionValidations;
    uint256 public minValidations;
+   event sendTransaction(bytes32 transactionID  , uint256 chainID ,address indexed assetAddress ,uint256 sendAmount ,address indexed receiver ,uint256 nounce );
+   event burnTransaction(bytes32 transactionID  , uint256 chainID ,address indexed assetAddress ,uint256 sendAmount ,address indexed receiver ,uint256 nounce );
    constructor () {
-       nativeAsset storage asset = nativeAssets[address(0)];
-       asset.tokenAddress = address(0); 
-        asset.transferFee = 2;
-        asset.SupportedchainIds.push(213);
-        asset.isSupportedChain[213] = true;
-        isActiveNativeAsset[address(0)] = true;
+       
    }
    function getID( uint256 chainFrom , address assetAddress , uint256 amount,  address receiver , uint256 nounce)public pure returns(bytes32){
        return  keccak256(
                                         abi.encodePacked(chainFrom, assetAddress , amount, receiver, nounce)
                                     );
    }
-   function send(uint256 chainTo ,  address assetAddress , uint256 amount ,  address receiver ) public payable {
-       require(isActiveNativeAsset[assetAddress] , "Asset is Active");
+   function getPendingMintTransaction() public view returns(bytes32[] memory){
+       return pendingMintTransactions;
+   }
+   function getPendingClaimTransaction() public  view returns(bytes32[] memory){
+       return pendingClaimTransactionIDs;
+   }
+   function addNativeAsset(address assetAddress , uint256 minAmount , uint256[] memory supportedChains , uint256 transferFee) public onlyAdmin {
+       require(!nativeAssets[assetAddress].isSet , "already added");
+       nativeAsset storage newNativeAsset = nativeAssets[assetAddress];
+       newNativeAsset.tokenAddress = assetAddress;
+       newNativeAsset.minAmount = minAmount;
+       newNativeAsset.transferFee = transferFee;
+       newNativeAsset.isSet = true;
+       isActiveNativeAsset[assetAddress] = true;
+       nativeAssetsList.push(assetAddress);
+       for(uint256 index; index < supportedChains.length ; index++){
+           if(!nativeAssets[assetAddress].isSupportedChain[supportedChains[index]]){
+             nativeAssets[assetAddress].isSupportedChain[supportedChains[index]] = true;
+             nativeAssets[assetAddress].SupportedchainIds.push(supportedChains[index]);
+           }
+       }
+       
+    
+   }
+   function activeNativeAsset(address assetAddress ,bool activate) public onlyAdmin{
+       isActiveNativeAsset[assetAddress] = activate;
+   }
+   function send(uint256 chainTo ,  address assetAddress , uint256 amount ,  address receiver ) public payable returns(bytes32){
+       require(isActiveNativeAsset[assetAddress] , "Asset is not Active");
        require(nativeAssets[assetAddress].isSupportedChain[chainTo] , "Chain not supported for this asset");
        require(amount  >= nativeAssets[assetAddress].minAmount , "amount below minimum");
        require(receiver != address(0) , "xant send to Zero address");
@@ -650,21 +731,24 @@ contract chainBridge is Context{
        bytes32 transactionID =  keccak256(
                                         abi.encodePacked(chainTo, assetAddress , sendAmount, receiver, nounce)
                                     );
-      isSendTransaction[transactionID] = true;                             
+      isSendTransaction[transactionID] = true;    
+      
       sendTransactions[transactionID] = Transaction(chainTo , assetAddress ,sendAmount , receiver , false);
       nativeAssets[assetAddress].balance += sendAmount;
       pendingSendTransactionIDs.push(transactionID);
        getUserNonce[receiver]++;
     //   emit sendsendAmount
+    emit sendTransaction(transactionID  ,chainTo , assetAddress , sendAmount , receiver , nounce );
+    return transactionID;
    }
-   function registerClaimTransaction(bytes32 claimID , uint256 chainFrom , address assetAddress , uint256 amount,  address receiver , uint256 nounce) public{
-        require(!isClaimTransaction[claimID] , "already added to claims");
-        
+   function registerClaimTransaction(bytes32 claimID , uint256 chainFrom , address assetAddress , uint256 amount,  address receiver , uint256 nounce) public onlyOracle{
+        require(!isClaimTransaction[claimID] , "cliam: already added to claims");
+        require(nativeAssets[assetAddress].isSupportedChain[chainFrom] , "invalid chain from");
         bytes32 requiredClaimID = keccak256(
-                                        abi.encodePacked(chainFrom, assetAddress , amount, receiver, nounce)
+                                        abi.encodePacked(chainId, assetAddress , amount, receiver, nounce)
                                     );
         require(claimID  == requiredClaimID , "error validation claim ID");
-        claimTransactions[claimID] = Transaction(chainFrom , assetAddress, amount , receiver , false);
+        claimTransactions[claimID] = Transaction(chainId , assetAddress, amount , receiver , false);
         isClaimTransaction[claimID] =  true;
         pendingClaimTransactionIDs.push(claimID);
         
@@ -678,8 +762,15 @@ contract chainBridge is Context{
        payoutUser(payable(claimTransactions[claimID].receiver), claimTransactions[claimID].assetAddress , amount);
        transactionValidations[claimID].validated =  true;
        claimTransactions[claimID].isCompleted = true;
+        for(uint256 index; index <pendingClaimTransactionIDs.length ; index++){
+           if(pendingClaimTransactionIDs[index] == claimID){
+               pendingClaimTransactionIDs[index] = pendingClaimTransactionIDs[pendingClaimTransactionIDs.length - 1];
+               pendingClaimTransactionIDs.pop();
+               
+           }
+       }
    } 
-   function validateClaim(bytes32 claimID , bool verdict ) public {
+   function validateClaim(bytes32 claimID , bool verdict ) public onlyValidator{
        require(isClaimTransaction[claimID] , "invalid caim ID");
        require(!claimTransactions[claimID].isCompleted , "claimed already");
        require(!transactionValidations[claimID].hasValidated[_msgSender()], "already validated");
@@ -690,41 +781,64 @@ contract chainBridge is Context{
        transactionValidations[claimID].hasValidated[_msgSender()] =true;
        transactionValidations[claimID].validators.push(msg.sender);
        
+       if(transactionValidations[claimID].validationCount >= minValidations){
+         claim(claimID);
+       }
    }
-   function addForiegnAsset(address foriegnAddress , uint256 chainID , uint256 minAmount ,string memory _name , string memory _symbol) public {
+   function validateMint(bytes32 mintID , bool verdict ) public onlyValidator{
+       require(isMintTransactions[mintID] , "invalid mint ID");
+       require(!mintTransactions[mintID].isCompleted , "claimed already");
+       require(!transactionValidations[mintID].hasValidated[_msgSender()], "already validated");
+       if(verdict){
+       transactionValidations[mintID].validationCount ++;  
+       }
+       transactionValidations[mintID].verdict[_msgSender()]  = verdict ;
+       transactionValidations[mintID].hasValidated[_msgSender()] =true;
+       transactionValidations[mintID].validators.push(msg.sender);
+      
+       if(transactionValidations[mintID].validationCount >= minValidations){
+         mint(mintID);
+       }
+       
+   }
+   function addForiegnAsset(address foriegnAddress , uint256 chainID , uint256 minAmount ,string memory _name , string memory _symbol) public onlyAdmin{
        require(!foriegnAssets[foriegnAddress].isSet , "already registered");
        WRAPPEDTOKEN wrappedAddress = new WRAPPEDTOKEN(string(abi.encodePacked( "R", _name)) , string(abi.encodePacked("R" , _symbol)));
        foriegnAssets[foriegnAddress] = foriegnAsset(address(wrappedAddress), foriegnAddress , minAmount , chainID , true);
-       wrappedForiegnPair[address(wrappedAddress)] =  address(wrappedAddress);
+       wrappedForiegnPair[address(wrappedAddress)] =  foriegnAddress;
        hasWrappedForiegnPair[address(wrappedAddress)] = true;
+       foriegnAssetsList.push(address(wrappedAddress));
    }
-   function registerMintTransaction(bytes32 mintID , uint256 chainFrom , address assetAddress , uint256 amount,  address receiver , uint256 nounce) public{
-       require(foriegnAssets[assetAddress].isSet , "not a registerred foriegn asset");
-       require(foriegnAssets[assetAddress].chainID == chainFrom , "request from wrong chain");
+   function registerMintTransaction(bytes32 mintID , uint256 chainFrom , address assetAddress , uint256 amount,  address receiver , uint256 nounce) public onlyOracle{
+       require(foriegnAssets[assetAddress].isSet , "mint: not a registerred foriegn asset");
+       require(foriegnAssets[assetAddress].chainID == chainFrom , "mint: request from wrong chain");
        bytes32 requiredmintID = keccak256(
-                                        abi.encodePacked(chainFrom, assetAddress , amount, receiver, nounce)
+                                        abi.encodePacked(chainId, assetAddress , amount, receiver, nounce)
                                     );
-        require(mintID  == requiredmintID, "error validation claim ID");
+        require(mintID  == requiredmintID, "mint: error validation mint ID");
         mintTransactions[mintID]  = Transaction(chainFrom , foriegnAssets[assetAddress].nativeAddress, amount , receiver , false);
         isMintTransactions[mintID] = true;
         pendingMintTransactions.push(mintID);
        
    }
-   function burn( address assetAddress , uint256 amount ,  address receiver) public {
+   function burn( address assetAddress , uint256 amount ,  address receiver) public  returns(bytes32){
         require(hasWrappedForiegnPair[assetAddress] , "has no foriegnAsset pair ");
        require(amount  >= foriegnAssets[wrappedForiegnPair[assetAddress]].minAmount , "amount below minimum");
        require(receiver != address(0) , "xant send to Zero address");
        require(processedPayment(assetAddress , amount) , "insuficient balance");
       uint256 chainTo =foriegnAssets[wrappedForiegnPair[assetAddress]].chainID;
+      address _foriegnAsset = wrappedForiegnPair[assetAddress];
        uint256 nounce = getUserNonce[receiver];
        bytes32 burnID =  keccak256(
-                                        abi.encodePacked( chainTo, assetAddress , amount, receiver, nounce)
+                                        abi.encodePacked( chainTo, _foriegnAsset , amount, receiver, nounce)
                                     );
       isburnTransactions[burnID] = true;                             
       burnTransactions[burnID] = Transaction(chainTo , assetAddress ,amount , receiver , false);
       
       pendingBurnTransactions.push(burnID);
        getUserNonce[receiver]++;
+       emit burnTransaction(burnID  ,chainTo , _foriegnAsset , amount , receiver , nounce );
+       return burnID;
    }
    function _burnToken(  address token , uint256 amount) private{
        WRAPPEDTOKEN wrappedToken = WRAPPEDTOKEN(token);
@@ -738,6 +852,13 @@ contract chainBridge is Context{
        _mintToken(mintTransactions[mintID].receiver, mintTransactions[mintID].assetAddress , mintTransactions[mintID].amount);
        transactionValidations[mintID].validated =  true;
        mintTransactions[mintID].isCompleted = true;
+       for(uint256 index; index <pendingMintTransactions.length ; index++){
+           if(pendingMintTransactions[index] == mintID){
+               pendingMintTransactions[index] = pendingMintTransactions[pendingMintTransactions.length - 1];
+               pendingMintTransactions.pop();
+               
+           }
+       }
    }
    function _mintToken(address receiver,  address token , uint256 amount) private{
        WRAPPEDTOKEN wrappedToken = WRAPPEDTOKEN(token);

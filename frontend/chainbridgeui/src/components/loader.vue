@@ -21,6 +21,7 @@ export default {
         user.id  =  Math.floor(Math.random() * 1000) + 1;
         user.address = accounts[0];
         localStorage.setItem("user",JSON.stringify(user));
+        this.$store.dispatch("swap/loadAssets" ) 
   })
 
   }
