@@ -15,14 +15,7 @@ export default {
    
    this.$store.dispatch("metamask/getNetwork");
    this.$store.dispatch('metamask/innitaliseWeb3');
-   window.ethereum.on('accountsChanged', function (accounts) {
-    console.log(accounts[0]);
-    let user = {};
-        user.id  =  Math.floor(Math.random() * 1000) + 1;
-        user.address = accounts[0];
-        localStorage.setItem("user",JSON.stringify(user));
-        this.$store.dispatch("swap/loadAssets" ) 
-  })
+  
 
   }
 }

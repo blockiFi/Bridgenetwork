@@ -8,11 +8,11 @@
 export default {
     data(){
         return {
-
+          
         }
     },
     computed: {
-         user : function(){
+    user : function(){
      return this.$store.state.currentUser.user;
    },
     addressFormated : function(){
@@ -28,6 +28,7 @@ export default {
         }, 1000);
     },
     methods : {
+        
         login(){
         this.$store.dispatch('metamask/innitaliseWeb3').then(
             response =>{
