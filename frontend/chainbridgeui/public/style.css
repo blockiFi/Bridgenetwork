@@ -1,4 +1,129 @@
-body {
+body{
+    background-color: #0D0D0D;
+}
+option{
+    color: black
+  }
+.bg {
+    background-color: #0D0D0D;
+    width: 100%;
+    height: 100vh;
+  }
+  
+  .box {
+    background-color: black;
+    width: 700px;
+    height: 800px;
+    border-radius: 25.6px;
+    padding: 40px;
+  }
+  
+  .save-card-box {
+    background-color: black;
+    width: 700px;
+    height: 700px;
+    border-radius: 32px;
+    padding: 40px;
+  }
+  
+  h1 {
+    font-family: Apercu;
+    font-weight: bold;
+    font-size: 28.8px;
+  }
+  
+  h3 {
+    font-family: Poppins;
+  }
+  
+  p {
+    font-size: 19.2px;
+    color: #FFFFFF;
+    font-family: Apercu;
+    opacity: 0.4;
+  }
+  
+  .bridge-btn {
+    width: 100%;
+    height: 89.6px;
+    background-color: #3964FA;
+    box-shadow: 0px 24px 48px rgba(20, 102, 204, 0.16);
+    border-radius: 25.6px;
+    color: white;
+    font-size: 30px;
+    font-family: Apercu;
+    border-color: #3964FA;
+    /* border-style: none; */
+  }
+  
+  /* .bridge-btn :hover{
+    background-color: #376537;
+    color: black;
+  } */
+  
+  .bridge-select {
+    width: 100%;
+    height: 89.6px;
+    background-color: rgba(255, 255, 255, 0.03);
+    border-radius: 25.6px;
+    color: white;
+    font-size: 30px;
+    font-family: Apercu;
+    padding: 20px;
+    border-style: none;
+  }
+  
+  .bridge-input {
+    width: 100%;
+    height: 100px;
+    color: #FFFFFF;
+    font-size: 25px;
+    /* opacity: 40%; */
+    font-family: Poppins;
+    padding-left: 20px;
+    border-style: none;
+    border-radius: 25.6px;
+    background-color: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.03);
+  }
+  
+  .bridge-card-btn {
+    width: 100%;
+    height: 89.6px;
+    background-image: linear-gradient(to right, #4136F1, #8743FF);
+    box-shadow: 0px 24px 48px rgba(20, 102, 204, 0.16);
+    border-radius: 25.6px;
+    color: white;
+    font-size: 30px;
+    font-family: Apercu;
+    border-color: #3964FA;
+    
+  }
+  .connect-button {
+    background-color: blue;
+     position: absolute;
+     right: 0;
+    
+     font-size: 20px;  
+     padding: 13px;
+     margin: 10px;
+ }
+ .connect-address{
+    position: absolute;
+    right: 0;
+    background-color: gray !important;
+    padding: 13px;
+    margin: 10px; 
+    font-size: 20px;  
+ }
+ .btn { 
+    
+    border : none;
+    color: white;
+    transition: all 0.2s;
+    border-radius: 500px;
+ }
+/* body {
     padding: 0;
     margin: 0;
     background: rgb(18, 17, 16);
@@ -96,4 +221,4 @@ body {
  }
 .btn:active {
     transform: translateY(10px);
-}
+} */

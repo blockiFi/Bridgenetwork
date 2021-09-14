@@ -1,44 +1,45 @@
 <template>
-<div >
-<div class="trade-container">
-      <div class="trade-content">
-        <h2  @click="flipDirection">Transfer <span  v-show="forward"> <i  class="fas fa-long-arrow-alt-right"></i></span>
-        <span  v-show="!forward"    ><i class="fas fa-long-arrow-alt-left"></i></span>
-        </h2>
-       
-        <div class="trade-asset">
-            <p class="grayed">select asset to transfer</p>
-            <select class="asset-selection" v-model="activeAsset" >
-                <option  v-for="wrappedAsset in assets" :value="wrappedAsset" :key="wrappedAsset.id">{{wrappedAsset.name}}   ({{wrappedAsset.symbol}})</option>
-                
-            </select>
-        </div>
-         <p class="grayed">Network To?</p>
-        <!-- <div> <h5 class="grayed">From</h5><h5 class="grayed">To</h5> </div> -->
-        <div class="network-selection">
-        <select class="asset-selection" v-model="toChain">
-               <option  v-for="activeNetwork in activenetworks" :key="activeNetwork.id" :value="activeNetwork">{{activeNetwork.name}}   ({{activeNetwork.bridgeAddress}})</option>
-                
-            </select>
+    <div class="row">
+        <div class="col-sm-12 col-md-8 offset-md-2">
+            <div style="margin-top: 20vh;">
+                <div  class="bg d-flex align-items-center justify-content-center">
+                      <div class="box">
+                        <h2 style="color:white" cl @click="flipDirection" ass="text-white mb-4">Transfer <span  v-show="forward"> <i  class="fas fa-long-arrow-alt-right"></i></span>
+                            <span  v-show="!forward"    ><i class="fas fa-long-arrow-alt-left"></i></span>
+                        </h2>
+                    
+                        <p>What token would you like to transfer</p>
             
+                        <select class="bridge-select mb-5" v-model="activeAsset" >
+                            <option  v-for="wrappedAsset in assets" :value="wrappedAsset" :key="wrappedAsset.id">{{wrappedAsset.name}}   ({{wrappedAsset.symbol}})</option>
+                        </select>
+                          <div class="row">
+                            <div class="col">
+                              <p>Network To?</p>
+                                <select class="bridge-select mb-5" v-model="toChain">
+                                    <option  v-for="activeNetwork in activenetworks" :key="activeNetwork.id" :value="activeNetwork">{{activeNetwork.name}}   ({{activeNetwork.bridgeAddress}})</option>
+                              </select>
+                            </div>
+                            <div class="col">
+                              <p class="grayed">Amount <span @click="amount = activeAsset.balance"> ({{new Intl.NumberFormat().format(activeAsset.balance)}})</span></p>
+                               <input class="bridge-select mb-5 mt-5" value="" placeholder="Amount of Token" type="number" v-model="amount"/>
+                             </div>
+                             <div class="col">
+                                <p >Reciever </p>
+                                <input class="bridge-select mb-5 mt-5" type="text" placeholder="Enter Address" v-model="reciever"/>
+                               </div>
+                          </div>
+                         
+                          <button v-if="viewbutton && approve" class="bridge-btn" @click="approveSpend" :disabled="activeapprove"> <span v-show="activeapprove"><i   class="fa fa-refresh fa-spin"></i></span> <span v-show="!activeapprove">Approve</span> </button>
+                
+                          <button v-if="viewbutton && transferbutton"  class="bridge-btn" @click="transferAsset" :disabled="activetransfer"> <span v-show="activetransfer"><i  class="fa fa-refresh fa-spin" ></i></span><span  v-show="!activetransfer">Transfer</span></button>
+                       
+                      </div>
+                    </div>
+                </div>
         </div>
-        <div class="trade-amount">
-            <p class="grayed">Amount <span @click="amount = activeAsset.balance"> ({{new Intl.NumberFormat().format(activeAsset.balance)}})</span></p>
-            <input class="trade-amount-input" type="number" placeholder="Enter Amount" v-model="amount">
-        </div>
-        <div class="trade-amount">
-            <p class="grayed">Reciever </p>
-            <input class="trade-amount-input" type="text" placeholder="Enter Address" v-model="reciever">
-        </div>
-        <div>
-            
-            <button v-if="viewbutton && approve" class="btn approve-button" @click="approveSpend" :disabled="activeapprove"> <span v-show="activeapprove"><i   class="fa fa-refresh fa-spin"></i></span> <span v-show="!activeapprove">Approve</span> </button>
-
-            <button v-if="viewbutton && transferbutton" class="btn transfer-button" @click="transferAsset" :disabled="activetransfer"> <span v-show="activetransfer"><i  class="fa fa-refresh fa-spin" ></i></span><span  v-show="!activetransfer">Transfer</span></button>
-        </div>
-      </div>
     </div>
-</div>
+   
 </template>
 <script>
 import Web3 from 'web3';
