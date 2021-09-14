@@ -1,5 +1,5 @@
 <template> 
-<div>
+<div class="bg">
    {{base_url}}
     <topbar></topbar>
     <swap></swap>
