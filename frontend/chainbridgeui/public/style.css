@@ -13,7 +13,7 @@ option{
   .box {
     background-color: black;
     width: 700px;
-    height: auto;
+    height: 90vh;
     border-radius: 25.6px;
     padding: 40px;
   }
@@ -44,7 +44,7 @@ option{
   }
   
   .bridge-btn {
-    width: 100%;
+    width: 95%;
     height: 70px;
     background-color: #3964FA;
     box-shadow: 0px 24px 48px rgba(20, 102, 204, 0.16);
@@ -62,7 +62,7 @@ option{
   } */
   
   .bridge-select {
-    width: 100%;
+    width: 95%;
     height: 80px;
     background-color: rgba(255, 255, 255, 0.03);
     border-radius: 25.6px;
@@ -74,7 +74,7 @@ option{
   }
   
   .bridge-input {
-    width: 100%;
+    width: 95%;
     height: 80px;
     color: #FFFFFF;
     font-size: 21px;

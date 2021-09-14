@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex align-items-center justify-content-center">
-        <div class="box">
+        <div class="box mt-5">
         <h2 style="color:white" cl @click="flipDirection" ass="text-white mb-4">Transfer <span  v-show="forward"> <i class="fas fa-long-arrow-alt-right"></i></span>
             <span  v-show="!forward"    ><i class="fas fa-long-arrow-alt-left"></i></span>
         </h2>
