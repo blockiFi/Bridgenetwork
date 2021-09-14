@@ -1,28 +1,35 @@
 <template>
-    <div class="d-flex align-items-center justify-content-center">
-        <div class="box mt-5">
-        <h2 style="color:white" cl @click="flipDirection" ass="text-white mb-4">Transfer <span  v-show="forward"> <i class="fas fa-long-arrow-alt-right"></i></span>
-            <span  v-show="!forward"    ><i class="fas fa-long-arrow-alt-left"></i></span>
-        </h2>
+<!-- class="d-flex align-items-center justify-content-center" -->
+    <div class="row mt-5">
+        <div class="col-md-3 col-lg-4 col-12"></div>
+        <div class="col-md-6 col-lg-4 col-12">
+            <div class="box">
+                <div class="container">
+                    <h2 style="color:white" cl @click="flipDirection" ass="text-white mb-4">Transfer <span  v-show="forward"> <i class="fas fa-long-arrow-alt-right"></i></span>
+                        <span  v-show="!forward"    ><i class="fas fa-long-arrow-alt-left"></i></span>
+                    </h2>
 
-        <p>What token would you like to transfer</p>
+                    <p>What token would you like to transfer</p>
 
-        <select class="bridge-select mb-5" v-model="activeAsset" >
-            <option  v-for="wrappedAsset in assets" :value="wrappedAsset" :key="wrappedAsset.id">{{wrappedAsset.name}}   ({{wrappedAsset.symbol}})</option>
-        </select>
-        <p>Network To?</p>
-        <select class="bridge-select mb-5" v-model="toChain">
-            <option  v-for="activeNetwork in activenetworks" :key="activeNetwork.id" :value="activeNetwork">{{activeNetwork.name}}   ({{activeNetwork.bridgeAddress}})</option>
-        </select>
-        <p class="grayed">Amount <span @click="amount = activeAsset.balance"> ({{new Intl.NumberFormat().format(activeAsset.balance)}})</span></p>
-        <input class="bridge-input mb-5" value="" placeholder="Amount of Token" type="number" v-model="amount"/>
-        <p >Reciever </p>
-        <input class="bridge-input mb-5" type="text" placeholder="Enter Address" v-model="reciever"/>
-            
-        <button class="bridge-btn" v-if="viewbutton && approve" @click="approveSpend" :disabled="activeapprove"> <span v-show="activeapprove"><i class="fa fa-refresh fa-spin"></i></span> <span v-show="!activeapprove">Approve</span> </button>
+                    <select class="bridge-select mb-5" v-model="activeAsset" >
+                        <option  v-for="wrappedAsset in assets" :value="wrappedAsset" :key="wrappedAsset.id">{{wrappedAsset.name}}   ({{wrappedAsset.symbol}})</option>
+                    </select>
+                    <p>Network To?</p>
+                    <select class="bridge-select mb-5" v-model="toChain">
+                        <option  v-for="activeNetwork in activenetworks" :key="activeNetwork.id" :value="activeNetwork">{{activeNetwork.name}}   ({{activeNetwork.bridgeAddress}})</option>
+                    </select>
+                    <p class="grayed">Amount <span @click="amount = activeAsset.balance"> ({{new Intl.NumberFormat().format(activeAsset.balance)}})</span></p>
+                    <input class="bridge-input mb-5" value="" placeholder="Amount of Token" type="number" v-model="amount"/>
+                    <p >Reciever </p>
+                    <input class="bridge-input mb-5" type="text" placeholder="Enter Address" v-model="reciever"/>
+                        
+                    <button class="bridge-btn" v-if="viewbutton && approve" @click="approveSpend" :disabled="activeapprove"> <span v-show="activeapprove"><i class="fa fa-refresh fa-spin"></i></span> <span v-show="!activeapprove">Approve</span> </button>
 
-        <button v-if="viewbutton && transferbutton"  class="bridge-btn" @click="transferAsset" :disabled="activetransfer"> <span v-show="activetransfer"><i  class="fa fa-refresh fa-spin" ></i></span><span  v-show="!activetransfer">Transfer</span></button>  
+                    <button v-if="viewbutton && transferbutton"  class="bridge-btn" @click="transferAsset" :disabled="activetransfer"> <span v-show="activetransfer"><i  class="fa fa-refresh fa-spin" ></i></span><span  v-show="!activetransfer">Transfer</span></button>  
+                </div>
+            </div>
         </div>
+        <div class="col-md-3 col-lg-4  col-12"></div>
     </div>
    
 </template>
