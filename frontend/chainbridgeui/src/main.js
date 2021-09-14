@@ -4,6 +4,7 @@ import store from "./store";
 import router from './router';
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 Vue.use(VueToast , {position : 'top-right'});
 

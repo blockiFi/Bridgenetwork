@@ -1,6 +1,6 @@
 <template>
     <div>
-         <button class="btn connect-button" v-if="!user.id" @click="login">Connect</button>
+    <button class="btn connect-button" v-if="!user.id" @click="login">Connect</button>
     <button class="btn connect-address" v-if="user.id">{{addressFormated}}</button>
     </div>
 </template>
