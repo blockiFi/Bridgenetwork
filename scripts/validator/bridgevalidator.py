@@ -265,71 +265,49 @@ def main():
     while True:
 
         for i in range(len(NETWORKS_DETAILS)):
-            contract1  = NETWORKS_DETAILS[i]['contract']
-            provider1 = NETWORKS_DETAILS[i]['provider']
-            for j in range(len(NETWORKS_DETAILS)):
-                if j == i:
-                    continue
-                contract2 =  NETWORKS_DETAILS[j]['contract']
-
-                mintTransactions = contract2.functions.getPendingMintTransaction().call()
-                print(mintTransactions)
-                if len(mintTransactions) == 0:
-                    print("no mint transaction")
-                else:
-                    for transaction in mintTransactions:
-                        print(transaction)
-
-                        mintTransaction = contract2.functions.mintTransactions(transaction).call()
-                        print(mintTransaction)
-                        sendTransaction = contract1.functions.sendTransactions(transaction).call()
-                        print(sendTransaction)
-                        validation = validateTransaction(sendTransaction, mintTransaction)
-
-                        try:
-                            nonce = provider1.eth.getTransactionCount(ETH_ACCOUNT.address)
-                            validationtransaction = contract2.functions.validateMint(transaction, validation).buildTransaction(
-                                {
-                                    'nonce': nonce,
-                                    'from': ETH_ACCOUNT.address
-                                }
-                            )
-                            signed_txn = provider1.eth.account.sign_transaction(validationtransaction, private_key=PRIVATE_KEY)
-                            tx_hash = provider1.eth.sendRawTransaction(signed_txn.rawTransaction)
-                            print(tx_hash)
-                        except:
-                            print("eroor")
-
-                claimTransactions = contract2.functions.getPendingClaimTransaction().call()
-                if len(claimTransactions) == 0:
-                    print("no claim transaction")
-                else:
-                    for transaction in claimTransactions:
-                        print(transaction)
-                        claimTransaction = contract2.functions.claimTransactions(transaction).call()
-                        print(claimTransaction)
-                        burnTransaction = contract1.functions.burnTransactions(transaction).call()
-                        print(burnTransaction)
-                        if validateTransaction(claimTransaction, burnTransaction):
-                            validation = True
-                        else:
-                            validation = False
-
-                        try:
-                            nonce = provider1.eth.getTransactionCount(ETH_ACCOUNT.address)
-                            validationtransaction = contract2.functions.validateClaim(transaction, validation).buildTransaction(
-                                {
-                                    'nonce': nonce,
-                                    'from': ETH_ACCOUNT.address
-                                }
-                            )
-                            signed_txn = provider1.eth.account.sign_transaction(validationtransaction, private_key=PRIVATE_KEY)
-                            tx_hash = provider1.eth.sendRawTransaction(signed_txn.rawTransaction)
-                            print(tx_hash)
-                        except:
-                            print("eroor")
-
-
+            contract2  = NETWORKS_DETAILS[i]['contract']
+            provider2 = NETWORKS_DETAILS[i]['provider']
+            mintTransactions = contract2.functions.getPendingMintTransaction().call()
+            for transaction in mintTransactions:
+                for j in range(len(NETWORKS_DETAILS)):
+                    contract1 = NETWORKS_DETAILS[j]['contract']
+                    mintTransaction = contract2.functions.mintTransactions(transaction).call()
+                    sendTransaction = contract1.functions.sendTransactions(transaction).call()
+                    validation = validateTransaction(sendTransaction, mintTransaction)
+                    try:
+                        nonce = provider2.eth.getTransactionCount(ETH_ACCOUNT.address)
+                        validationtransaction = contract2.functions.validateMint(transaction, validation).buildTransaction(
+                            {
+                                'nonce': nonce,
+                                'from': ETH_ACCOUNT.address
+                            }
+                        )
+                        signed_txn = provider2.eth.account.sign_transaction(validationtransaction, private_key=PRIVATE_KEY)
+                        tx_hash = provider2.eth.sendRawTransaction(signed_txn.rawTransaction)
+                        print(tx_hash)
+                    except:
+                        print("error")
+            
+            claimTransactions = contract2.functions.getPendingClaimTransaction().call()
+            for transaction in claimTransactions:
+                for j in range(len(NETWORKS_DETAILS)):
+                    contract1 = NETWORKS_DETAILS[j]['contract']
+                    claimTransaction = contract2.functions.claimTransactions(transaction).call()
+                    burnTransaction = contract1.functions.burnTransactions(transaction).call()
+                    validation = validateTransaction(claimTransaction, burnTransaction)
+                    try:
+                        nonce = provider2.eth.getTransactionCount(ETH_ACCOUNT.address)
+                        validationtransaction = contract2.functions.validateMint(transaction, validation).buildTransaction(
+                            {
+                                'nonce': nonce,
+                                'from': ETH_ACCOUNT.address
+                            }
+                        )
+                        signed_txn = provider2.eth.account.sign_transaction(validationtransaction, private_key=PRIVATE_KEY)
+                        tx_hash = provider2.eth.sendRawTransaction(signed_txn.rawTransaction)
+                        print(tx_hash)
+                    except:
+                        print("error")
 
 
 if __name__ == "__main__":
