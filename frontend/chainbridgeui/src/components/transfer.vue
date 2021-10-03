@@ -1,49 +1,47 @@
 <template>
-<!-- class="d-flex align-items-center justify-content-center" -->
-    <div class="row mt-5">
-        <div class="col-md-3 col-lg-4 col-12"></div>
-        <div class="col-md-6 col-lg-4 col-12">
-            <div class="d-flex justify-content-center mt-5">
-                <div class="box">
-                    <div class="container">
-                        <h2 style="color:white; font-family:Sawarabi Gothic" cl @click="flipDirection" ass="text-white mb-4">Transfer <span v-show="forward"> <i class="fas fa-long-arrow-alt-right pt-2"></i></span>
-                            <span  v-show="!forward"    ><i class="fas fa-long-arrow-alt-left pt-2"></i></span>
-                        </h2>
-
-                        <p>What token would you like to transfer</p>
-
-                        <select class="bridge-select mb-4" v-model="activeAsset" >
-                            <option  v-for="wrappedAsset in assets" :value="wrappedAsset" :key="wrappedAsset.id">{{wrappedAsset.name}}   ({{wrappedAsset.symbol}})</option>
-                        </select>
-                        <p>Network To?</p>
-                        <select class="bridge-select mb-4" v-model="toChain">
-                            <option  v-for="activeNetwork in activenetworks" :key="activeNetwork.id" :value="activeNetwork">{{activeNetwork.name}}   ({{activeNetwork.bridgeAddress}})</option>
-                        </select>
-                        <p class="grayed">Amount <span @click="amount = activeAsset.balance"> ({{new Intl.NumberFormat().format(activeAsset.balance)}})</span></p>
-                        <input class="bridge-input mb-4" value="" placeholder="Amount of Token" type="number" v-model="amount"/>
-                        <p >Reciever </p>
-                        <input class="bridge-input mb-4" type="text" placeholder="Enter Address" v-model="reciever"/>
-                            
-                        <!-- <button class="btn-bridge-transfer mb-2" v-if="viewbutton && approve" @click="approveSpend" :disabled="activeapprove"> <span v-show="activeapprove"><i class="fa fa-refresh fa-spin"></i></span> <span v-show="!activeapprove">Approve</span> </button>
-
-                        <button class="bridge-btn mb-2" v-if="viewbutton && transferbutton" @click="transferAsset" :disabled="activetransfer"> <span v-show="activetransfer"><i  class="fa fa-refresh fa-spin" ></i></span><span  v-show="!activetransfer">Transfer</span></button>   -->
-                        
-                        <div class="d-flex justify-content-between px-2 mt-4">
-                            <button class="btn-bridge-transfer mb-2" v-if="viewbutton && approve" @click="approveSpend" :disabled="activeapprove"> <span v-show="activeapprove"><i class="fa fa-refresh fa-spin"></i></span> <span v-show="!activeapprove">Approve</span> </button>
-
-                            <button class="btn-bridge-transfer mb-2" v-if="viewbutton && transferbutton" @click="transferAsset" :disabled="activetransfer"> <span v-show="activetransfer"><i  class="fa fa-refresh fa-spin" ></i></span><span  v-show="!activetransfer">Transfer</span></button> 
-                        </div>
-                    </div>
-                </div>
+  <div>
+    <div class="transfer">
+      <!-- FROM -->
+        <div class="from-bar">
+            <h4>From:</h4>
+            <div class="trans-bar">
+              <selection_btn :name="eth" :img="'ethereum.png'"></selection_btn>
+              <trans_input></trans_input>
             </div>
-            
         </div>
-        <div class="col-md-3 col-lg-4  col-12"></div>
-    </div>
-   
+
+        <div class="exchange">
+          <img src="../assets/exchange_icon.png" width="50px" height="50px"/>
+        </div>
+        
+        <!-- TO -->
+        <div class="to-bar">
+          <h4>To:</h4>
+          <div class="trans-bar">
+            <selection_btn :name="bnb" :img="'bnb.png'"></selection_btn>
+            <trans_input></trans_input>
+          </div>
+        </div>
+        <br />
+
+        <!-- RECEIVER -->
+        <div class="receiver-bar">
+          <h4>Receiver:</h4>
+          <div class="trans-bar">
+            <input class="receiver-input" type="text" placeholder="Paste your address here.." />
+          </div>
+        </div>
+        <br />
+
+        <!-- TRANSFER BUTTON -->
+        <div class="d-flex justify-content-end">
+          <button class="btn-bridge-transfer">Transfer <i class="fa fa-angle-right pt-1"></i></button>
+        </div>
+      </div>
+  </div>
 </template>
 <script>
-import Web3 from 'web3';
+  import Web3 from 'web3';
 import  {bridgeAbi , ERC20Abi} from "../store/modules/abi";
 export default {
     data(){
@@ -56,8 +54,9 @@ export default {
             toChain : {},
             reciever: '',
             activeapprove : false,
-            activetransfer: false
-           
+            activetransfer: false,
+            eth: 'Ethereum',
+            bnb: 'Binance Chain'
         }
     },
     watch : {
