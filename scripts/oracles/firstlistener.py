@@ -190,7 +190,7 @@ bridge_abi = json.loads('[{"inputs":[],"stateMutability":"nonpayable","type":"co
 
 contract1 = kovan.eth.contract(address=bridge1Address, abi=bridge_abi)
 contract2 = bsc.eth.contract(address=bridge2Address, abi=bridge_abi)
-private_key = "ceca046e9dbf795a85cce82174317ed6007ae0686ff84f730888f285278e3b68"
+private_key = ""
 acct = Account.from_key(private_key)
 
 
