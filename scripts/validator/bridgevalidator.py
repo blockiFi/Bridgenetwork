@@ -1,27 +1,35 @@
 # import the following dependencies
 import json
+import os
+from dotenv import load_dotenv
 from eth_account import Account
-from web3 import Web3
+from web3.auto import Web3
 import asyncio
 
-infura_url = 'https://kovan.infura.io/v3/d2ae878adfc8418fb4f4d73eefa31332'
-ankr_url = 'https://data-seed-prebsc-1-s1.binance.org:8545'
-networks = [
+load_dotenv()
+
+PRIVATE_KEY = os.get('PRIVATE_KEY')
+
+NETWORKS_DETAILS = [
     {
         'name': 'kovan',
         'url': "https://kovan.infura.io/v3/d2ae878adfc8418fb4f4d73eefa31332",
         'bridgeAddress': "",
-        'id': "97"
-
+        'id': "97",
+        'provider' : None,
+        'contract' : None
+    },
+    {
+        'name':'bsc',
+        'url':'https://data-seed-prebsc-1-s1.binance.org:8545',
+        'bridgeAddress': '',
+        'id':'',
+        'provider':None,
+        'contract' : None
     }
 ]
-kovan = Web3(Web3.HTTPProvider(infura_url))
-bsc = Web3(Web3.HTTPProvider(ankr_url))
-# add your blockchain connection information
-# uniswap address and abi
-bridge1Address = '0x5e0139A1bdE4C3eD4Bcb53D04ab4CCe7bDBD1BA5'
-bridge2Address = '0x7Ee9BD6566b9A5C068a7bfE4D1568411C80B36d4'
-bridge_abi = json.loads('[{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,'
+
+BRIDGE_ABI = json.loads('[{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,'
                         '"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},'
                         '{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],'
                         '"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,'
@@ -192,14 +200,25 @@ bridge_abi = json.loads('[{"inputs":[],"stateMutability":"nonpayable","type":"co
                         '"name":"wrappedForiegnPair","outputs":[{"internalType":"address","name":"",'
                         '"type":"address"}],"stateMutability":"view","type":"function"}]')
 
-contract1 = kovan.eth.contract(address=bridge1Address, abi=bridge_abi)
-contract2 = bsc.eth.contract(address=bridge2Address, abi=bridge_abi)
-private_key = "ceca046e9dbf795a85cce82174317ed6007ae0686ff84f730888f285278e3b68"
-acct = Account.from_key(private_key)
+def get_providers(networks_details):
+    for i in range(len(networks_details)):
+        network_url = networks_details[i]['url']
+        networks_details[i]['provider'] = Web3(Web3.HTTPProvider(network_url))
+
+def get_contracts(networks_details):
+    for i in range(len(networks_details)):
+        provider = networks_details[i]['provider']
+        address = networks_details[i]['bridgeAddress']
+        networks_details[i]['contract'] = provider.eth.contract(address=address, abi=BRIDGE_ABI)
+
+
+
+
+ETH_ACCOUNT = Account.from_key(PRIVATE_KEY)
 
 
 def handle_event(event, action):
-    print(acct.address)
+    print(ETH_ACCOUNT.address)
     print(event.args.transactionID)
     print(event.args.assetAddress)
     # chainID
@@ -209,8 +228,8 @@ def handle_event(event, action):
     # nounce
     # (bytes32
 
-    print(bsc.eth.get_balance(acct.address))
-    nonce = bsc.eth.getTransactionCount(acct.address)
+    print(bsc.eth.get_balance(ETH_ACCOUNT.address))
+    nonce = bsc.eth.getTransactionCount(ETH_ACCOUNT.address)
     if action == 'send':
         transaction = contract2.functions.registerMintTransaction(
             event.args.transactionID,
@@ -222,7 +241,7 @@ def handle_event(event, action):
         ).buildTransaction(
             {
                 'nonce': nonce,
-                'from': acct.address
+                'from': ETH_ACCOUNT.address
             }
         )
         signed_txn = bsc.eth.account.sign_transaction(transaction, private_key=private_key)
@@ -236,79 +255,59 @@ def handle_event(event, action):
 
 
 def validateTransaction(sendTransaction, mintTransaction):
-    if (
-            sendTransaction[2] == mintTransaction[2] and
-            sendTransaction[3] == mintTransaction[3] and
-            sendTransaction[4] == mintTransaction[4]):
-        return True
-    else:
-        return False
+    return sendTransaction[2] == mintTransaction[2] and sendTransaction[3] == mintTransaction[3] and sendTransaction[4] == mintTransaction[4]
+        
 
 
 def main():
+    get_providers()
+    get_contracts()
     while True:
 
-        mintTransactions = contract2.functions.getPendingMintTransaction().call()
-        print(mintTransactions)
-        if len(mintTransactions) == 0:
-            print("no mint transaction")
-        else:
+        for i in range(len(NETWORKS_DETAILS)):
+            contract2  = NETWORKS_DETAILS[i]['contract']
+            provider2 = NETWORKS_DETAILS[i]['provider']
+            mintTransactions = contract2.functions.getPendingMintTransaction().call()
             for transaction in mintTransactions:
-                print(transaction)
-
-                mintTransaction = contract2.functions.mintTransactions(transaction).call()
-                print(mintTransaction)
-                sendTransaction = contract1.functions.sendTransactions(transaction).call()
-                print(sendTransaction)
-                if validateTransaction(sendTransaction, mintTransaction):
-                    validation = True
-                else:
-                    validation = False
-
-                try:
-                    nonce = bsc.eth.getTransactionCount(acct.address)
-                    validationtransaction = contract2.functions.validateMint(transaction, validation).buildTransaction(
-                        {
-                            'nonce': nonce,
-                            'from': acct.address
-                        }
-                    )
-                    signed_txn = bsc.eth.account.sign_transaction(validationtransaction, private_key=private_key)
-                    tx_hash = bsc.eth.sendRawTransaction(signed_txn.rawTransaction)
-                    print(tx_hash)
-                except:
-                    print("eroor")
-
-        claimTransactions = contract2.functions.getPendingClaimTransaction().call()
-        if len(claimTransactions) == 0:
-            print("no claim transaction")
-        else:
+                for j in range(len(NETWORKS_DETAILS)):
+                    contract1 = NETWORKS_DETAILS[j]['contract']
+                    mintTransaction = contract2.functions.mintTransactions(transaction).call()
+                    sendTransaction = contract1.functions.sendTransactions(transaction).call()
+                    validation = validateTransaction(sendTransaction, mintTransaction)
+                    try:
+                        nonce = provider2.eth.getTransactionCount(ETH_ACCOUNT.address)
+                        validationtransaction = contract2.functions.validateMint(transaction, validation).buildTransaction(
+                            {
+                                'nonce': nonce,
+                                'from': ETH_ACCOUNT.address
+                            }
+                        )
+                        signed_txn = provider2.eth.account.sign_transaction(validationtransaction, private_key=PRIVATE_KEY)
+                        tx_hash = provider2.eth.sendRawTransaction(signed_txn.rawTransaction)
+                        print(tx_hash)
+                    except:
+                        print("error")
+            
+            claimTransactions = contract2.functions.getPendingClaimTransaction().call()
             for transaction in claimTransactions:
-                print(transaction)
-                claimTransaction = contract2.functions.claimTransactions(transaction).call()
-                print(claimTransaction)
-                burnTransaction = contract1.functions.burnTransactions(transaction).call()
-                print(burnTransaction)
-                if validateTransaction(claimTransaction, burnTransaction):
-                    validation = True
-                else:
-                    validation = False
-
-                try:
-                    nonce = bsc.eth.getTransactionCount(acct.address)
-                    validationtransaction = contract2.functions.validateClaim(transaction, validation).buildTransaction(
-                        {
-                            'nonce': nonce,
-                            'from': acct.address
-                        }
-                    )
-                    signed_txn = bsc.eth.account.sign_transaction(validationtransaction, private_key=private_key)
-                    tx_hash = bsc.eth.sendRawTransaction(signed_txn.rawTransaction)
-                    print(tx_hash)
-                except:
-                    print("eroor")
-
-
+                for j in range(len(NETWORKS_DETAILS)):
+                    contract1 = NETWORKS_DETAILS[j]['contract']
+                    claimTransaction = contract2.functions.claimTransactions(transaction).call()
+                    burnTransaction = contract1.functions.burnTransactions(transaction).call()
+                    validation = validateTransaction(claimTransaction, burnTransaction)
+                    try:
+                        nonce = provider2.eth.getTransactionCount(ETH_ACCOUNT.address)
+                        validationtransaction = contract2.functions.validateMint(transaction, validation).buildTransaction(
+                            {
+                                'nonce': nonce,
+                                'from': ETH_ACCOUNT.address
+                            }
+                        )
+                        signed_txn = provider2.eth.account.sign_transaction(validationtransaction, private_key=PRIVATE_KEY)
+                        tx_hash = provider2.eth.sendRawTransaction(signed_txn.rawTransaction)
+                        print(tx_hash)
+                    except:
+                        print("error")
 
 
 if __name__ == "__main__":
